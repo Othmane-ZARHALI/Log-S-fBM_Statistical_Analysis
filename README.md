@@ -53,7 +53,7 @@ On each window $j$, two block quantities are defined:
 $$
 M_j
 :=
-\int_{\text{window }j} e^{\omega(t)}\,dt,
+\int_{\text{window }j} e^{\omega(t)} dt,
 $$
 
 The centred log-mass statistic
