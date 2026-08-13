@@ -47,6 +47,9 @@ References
 Bolko, A. E., Christensen, K., Pakkanen, M. S., Veliyev, B. (2020). "A GMM
     approach to estimate the roughness of stochastic volatility."
     arXiv:2010.04610.
+Zarhali, O., Bacry, E., Muzy, J.-F. (2026). "From rough to multifractal
+    multidimensional volatility: A multidimensional Log S-fBM model."
+    arXiv:2601.10517.
 ===========================================================
 """
 

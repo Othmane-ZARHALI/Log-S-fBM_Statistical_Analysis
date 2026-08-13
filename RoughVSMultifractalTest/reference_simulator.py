@@ -55,6 +55,9 @@ Wood, A. T. A., Chan, G. (1994). "Simulation of Stationary Gaussian
     Processes in [0,1]^d." J. Comput. Graph. Statist., 3(4), 409-432.
 Gatheral, J., Jaisson, T., Rosenbaum, M. (2018). "Volatility is rough."
     Quantitative Finance, 18(6), 933-949.
+Zarhali, O., Bacry, E., Muzy, J.-F. (2026). "From rough to multifractal
+    multidimensional volatility: A multidimensional Log S-fBM model."
+    arXiv:2601.10517.
 ===========================================================
 """
 
