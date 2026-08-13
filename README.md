@@ -22,14 +22,14 @@ The code allows the simulation of the log-volatility field, and the numerical st
 
 The log-volatility field $\omega(t)$ studied throughout this repository is a centred stationary Gaussian process with autocovariance
 
-$
+$$
 c_H(x) =
 \begin{cases}
 \lambda^2 \log\dfrac{T}{x}, & H=0,\ 0<x<T,\\[1ex]
 \dfrac{\lambda^2}{2H(1-2H)}\Big(T^{2H}-x^{2H}\Big), & H\neq0,\ 0<x<T,\\[1ex]
 0, & x\ge T,
 \end{cases}
-$
+$$
 
 so that the same covariance family interpolates between:
 
@@ -61,38 +61,6 @@ for a closed-form asymptotic variance $V_n(H)$. Two competing test statistics fo
 - a **regularized-proportion statistic** $T_n$ (Theorem 24), built from a Gaussian-CDF-smoothed indicator of the log-mass exceeding a threshold;
 - a **direct log-mass statistic** $Z_n := \Sigma_n/(\lambda\sqrt{V_n(0)})$, which shares the same asymptotic power as $T_n$ but shows noticeably better finite-sample power and needs no threshold or bandwidth to choose.
 
----
-
-## Repository layout
-
-```
-.
-├── clt_demo/
-│   └── clt_illustration.py             # Monte Carlo illustration of the CLT
-├── hurst_test/
-│   ├── reference_simulator.py          # FFT/circulant-embedding field simulator + independent-fields diagnostics
-│   ├── core_simulation.py              # ⚠ interface stub, see "Missing dependencies" below
-│   ├── efficient_field_sim.py          # ⚠ interface stub, see "Missing dependencies" below
-│   ├── clt_check.py                    # CLT check on the log-mass statistic
-│   ├── regularized_indicator.py        # regularized vs. hard indicator statistic comparison
-│   ├── hypothesis_test_regularized.py  # T_n test (Theorem 24), size & power
-│   ├── hypothesis_test_logM.py         # direct log-M test Z_n, size & power
-│   └── compute_one_point_logM.py       # single (H, n) power point, for batch/cluster runs
-├── docs/
-│   ├── documentation.tex               # LaTeX source of the mathematical documentation
-│   └── documentation.pdf               # compiled documentation
-├── requirements.txt
-└── README.md
-```
-
----
-
-## Installation
-
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-```
 
 ---
 
@@ -135,14 +103,6 @@ python compute_one_point_logM.py <H> <n>
 
 ---
 
-## ⚠ Missing dependencies
-
-The source this repository was built from imported `build_chol`, `simulate_M`, `Vn_formula` (from a module `core_simulation`) and `simulate_Y_batch` (from a module `efficient_field_sim`) that were **referenced but never defined**. `hurst_test/core_simulation.py` and `hurst_test/efficient_field_sim.py` in this repo are **interface stubs**: their docstrings document the expected signature and behaviour (reconstructed from how each function is called), but the function bodies raise `NotImplementedError` rather than guessing at the Cholesky-based simulation internals.
-
-`reference_simulator.py` (and hence `clt_demo/clt_illustration.py`, which has no such dependency) run correctly out of the box. The five other scripts under `hurst_test/` will raise `NotImplementedError` with a pointer back to the relevant docstring until the original implementations of these two modules are dropped in.
-
----
-
 ## Documentation
 
 Full mathematical documentation — covariance model, both test statistics with their asymptotics, per-function parameter tables, algorithm steps, and implementation notes — is in [`docs/documentation.pdf`](docs/documentation.pdf) (built from [`docs/documentation.tex`](docs/documentation.tex)).
@@ -156,9 +116,3 @@ Full mathematical documentation — covariance model, both test statistics with 
 3. Bolko, A. E., Christensen, K., Pakkanen, M. S., Veliyev, B. (2020). "A GMM approach to estimate the roughness of stochastic volatility." arXiv: https://arxiv.org/abs/2010.04610
 4. Gatheral, J., Jaisson, T., Rosenbaum, M. (2018). "Volatility is rough." *Quantitative Finance*, 18(6), 933–949.
 5. Wood, A. T. A., Chan, G. (1994). "Simulation of Stationary Gaussian Processes in $[0,1]^d$." *J. Comput. Graph. Statist.*, 3(4), 409–432.
-
----
-
-## License
-
-MIT — see individual file headers for provenance notes.
