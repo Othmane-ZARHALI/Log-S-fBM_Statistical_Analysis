@@ -71,8 +71,8 @@ satisfies, under both the null and the alternative,
 
 $$
 \frac{\Sigma_n}{\lambda}
-\xrightarrow{\ d\ }
-\mathcal{N}\left(0,V_n(H)\right),
+\xrightarrow[\lambda\to0]{\ d\ }
+\mathcal{N}\left(0,V_n(H)\right).
 $$
 
 for a closed-form asymptotic variance $V_n(H)$.
