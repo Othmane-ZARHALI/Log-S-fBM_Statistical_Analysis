@@ -1,4 +1,4 @@
-# rough-vs-multifractal-hypothesis-testing
+# Rough VS Multifractal Hypothesis Testing
 
 This repository contains the Python implementation and numerical experiments associated with a statistical hypothesis-testing study for the Hurst exponent of a log-volatility field, it is mainly based on the papers:
 
@@ -22,14 +22,14 @@ The code allows the simulation of the log-volatility field, and the numerical st
 
 The log-volatility field $\omega(t)$ studied throughout this repository is a centred stationary Gaussian process with autocovariance
 
-$$
+$
 c_H(x) =
 \begin{cases}
 \lambda^2 \log\dfrac{T}{x}, & H=0,\ 0<x<T,\\[1ex]
 \dfrac{\lambda^2}{2H(1-2H)}\Big(T^{2H}-x^{2H}\Big), & H\neq0,\ 0<x<T,\\[1ex]
 0, & x\ge T,
 \end{cases}
-$$
+$
 
 so that the same covariance family interpolates between:
 
