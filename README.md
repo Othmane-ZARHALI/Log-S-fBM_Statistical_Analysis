@@ -71,7 +71,7 @@ satisfies, under both the null and the alternative,
 
 $$
 \frac{\Sigma_n}{\lambda}
-\xrightarrow[\lambda\to0]{\ d\ }
+\underset{\lambda \to 0}{\overset{d}{\longrightarrow}}
 \mathcal{N}\left(0,V_n(H)\right).
 $$
 
