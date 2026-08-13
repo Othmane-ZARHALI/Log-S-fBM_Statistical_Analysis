@@ -22,23 +22,19 @@ The code allows the simulation of the log-volatility field and the numerical stu
 
 The log-volatility field $\omega(t)$ studied throughout this repository is a centred stationary Gaussian process with autocovariance
 
-$$
-c_H(x)
-=
-\begin{cases}
-\displaystyle
-\lambda^2 \log\left(\frac{T}{x}\right),
-& H = 0,\quad 0 < x < T,
-\\[1.5ex]
-\displaystyle
+$$ c_H(x) =
+\lambda^2
+\log\left(\frac{T}{x}\right)
+\mathbf{1}_{\{H=0\}}
+\mathbf{1}_{\{0<x<T\}}
++
 \frac{\lambda^2}{2H(1-2H)}
-\left(T^{2H}-x^{2H}\right),
-& H \neq 0,\quad 0 < x < T,
-\\[1.5ex]
-0,
-& x \geq T.
-\end{cases}
+\left(T^{2H}-x^{2H}\right)
+\mathbf{1}_{\{H\neq0\}}
+\mathbf{1}_{\{0<x<T\}}.
 $$
+
+
 
 Thus, the same covariance family interpolates between:
 
