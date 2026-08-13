@@ -77,7 +77,7 @@ $$
 
 for a closed-form asymptotic variance $V_n(H)$.
 
-Two competing test statistics for
+Two test statistic for
 
 $$
 H_0:H=0
@@ -85,10 +85,9 @@ H_0:H=0
 H_1:H\neq0
 $$
 
-are studied and compared:
+is studied: 
 
-- a **regularized-proportion statistic** $T_n$ (Theorem 24), built from a Gaussian-CDF-smoothed indicator of the log-mass exceeding a threshold;
-- a **direct log-mass statistic**
+a **direct log-mass statistic**
   $$
   Z_n
   :=
