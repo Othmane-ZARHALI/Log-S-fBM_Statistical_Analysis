@@ -1,21 +1,37 @@
 """
-regularized_indicator.py
-=========================
+===========================================================
+File        : regularized_indicator.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    Compares the smooth (Gaussian-CDF-regularized) proportion statistic
+    against the hard indicator statistic it approximates, as a
+    diagnostic for the choice of bandwidth eps used to build the T_n
+    test in hypothesis_test_regularized.py.
+    This module defines:
+      - run, simulating Y via core_simulation.build_chol / simulate_M,
+        comparing p_hat_n^eps to the hard indicator p_hat_n across a
+        grid of bandwidths, and producing the associated figures and
+        summary tables.
 
-Compares the smooth (Gaussian-CDF-regularized) proportion statistic
+Mathematical background
+------------------------
+Fix a threshold a and bandwidth eps > 0. With Y_j := log M_j - E[log M_j],
+the regularized proportion statistic is
 
-    p_hat_n^eps := (1/n) * sum_{j=1}^n Phi( (Y_j - a) / eps )
+    p_hat_n^eps := (1/n) * sum_{j=1}^n Phi( (Y_j - a) / eps ),
 
-against the hard indicator statistic
+which converges pointwise, as eps -> 0, to the hard indicator statistic
 
-    p_hat_n := (1/n) * sum_{j=1}^n 1{Y_j >= a}
+    p_hat_n := (1/n) * sum_{j=1}^n 1{Y_j >= a}.
 
-at n=5, T=8, Delta=1, H=0.2, lambda=0.1, threshold a=0.1, for a grid of
-bandwidths eps in {1, 0.1, 0.01, 1e-4}. As eps -> 0, p_hat_n^eps -> p_hat_n
-pointwise; the regularized statistic is the one whose asymptotic normality
-is used to build the T_n test in ``hypothesis_test_regularized.py``, with
-the hard indicator eps=0 limit shown here purely as the target it
-approximates.
+At n=5, T=8, Delta=1, H=0.2, lambda=0.1, threshold a=0.1, for a grid of
+bandwidths eps in {1, 0.1, 0.01, 1e-4}, this script studies that
+approximation quality. p_hat_n^eps is the statistic whose asymptotic
+normality underlies the T_n test in hypothesis_test_regularized.py; the
+hard-indicator eps -> 0 limit is shown here purely as the target it
+approximates, independently of the hypothesis test itself.
 
 Produces
 --------
@@ -32,6 +48,13 @@ NotImplementedError.
 Usage
 -----
     python regularized_indicator.py
+
+References
+----------
+van der Vaart, A. W. (1998). "Asymptotic Statistics," Ch. 3 (the delta
+    method and regularized indicator functions). Cambridge University
+    Press.
+===========================================================
 """
 
 import numpy as np

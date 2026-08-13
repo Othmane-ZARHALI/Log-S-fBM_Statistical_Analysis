@@ -1,22 +1,24 @@
 """
-core_simulation.py
-===================
-
-*** EXTERNAL DEPENDENCY -- NOT PART OF THE SUPPLIED SOURCE ***
-
-Several scripts in this package (``clt_check.py``, ``regularized_indicator.py``,
-``hypothesis_test_regularized.py``, ``hypothesis_test_logM.py``) import three
-functions from a module named ``core_simulation`` that was referenced, but
-never defined, in the original uploaded script. This file documents the
-*interface* those callers rely on (reconstructed purely from how the
-functions are called and from the surrounding comments), so the package
-imports cleanly and the call sites are self-documenting. It intentionally
-raises ``NotImplementedError`` rather than guessing at the Cholesky-based
-simulation internals -- filling those in silently would risk putting
-incorrect mathematics into a hypothesis-testing pipeline.
-
-Replace the function bodies below with your original implementations
-(or send them over and this stub can be completed).
+===========================================================
+File        : core_simulation.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    *** EXTERNAL DEPENDENCY -- NOT PART OF THE SUPPLIED SOURCE ***
+    Several scripts in this package (clt_check.py,
+    regularized_indicator.py, hypothesis_test_regularized.py,
+    hypothesis_test_logM.py) import three functions from a module named
+    core_simulation that was referenced, but never defined, in the
+    original uploaded script. This file documents the *interface* those
+    callers rely on (reconstructed purely from how the functions are
+    called and from the surrounding comments), so the package imports
+    cleanly and the call sites are self-documenting. It intentionally
+    raises NotImplementedError rather than guessing at the Cholesky-based
+    simulation internals -- filling those in silently would risk putting
+    incorrect mathematics into a hypothesis-testing pipeline.
+    Replace the function bodies below with your original implementations
+    (or send them over and this stub can be completed).
 
 Expected interface
 -------------------
@@ -45,6 +47,7 @@ Vn_formula(H, Ln, T) -> float
     calibrate the test statistics (``T_n``, ``Z_n``) and to compute the
     theoretical power curve ``pi(H) = 1 - Phi(z_crit/R) + Phi(-z_crit/R)``,
     ``R = sqrt(V_n(H)/V_n(0))``.
+===========================================================
 """
 
 

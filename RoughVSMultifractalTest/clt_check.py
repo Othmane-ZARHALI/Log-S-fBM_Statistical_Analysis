@@ -1,13 +1,35 @@
 """
-clt_check.py
-============
+===========================================================
+File        : clt_check.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    CLT check on the log-mass statistic ln(M) at a small vol-of-vol
+    lambda^2 = 1e-2 (lambda = 0.1), for a single window (n=1),
+    memory-length T = 1.05 deliberately close to Delta = 1 (weak
+    within-window correlation, rho = 1 - (Delta/T)^(2H) ~ 0.019 at
+    H=0.2). Included for completeness even though at this small lambda
+    the Gaussian fit is expected to be good regardless of T -- this is
+    the theorem's own asymptotic regime.
+    This module defines:
+      - run, simulating Sigma_n via core_simulation.build_chol /
+        simulate_M and producing the histogram-vs-Gaussian and QQ-plot
+        diagnostics of W := Sigma_n / lambda.
 
-CLT check on the log-mass statistic ln(M) at a small vol-of-vol
-lambda^2 = 1e-2 (lambda = 0.1), for a single window (n=1), memory-length
-T = 1.05 deliberately close to Delta = 1 (weak within-window correlation,
-rho = 1 - (Delta/T)^(2H) ~ 0.019 at H=0.2). Included for completeness even
-though at this small lambda the Gaussian fit is expected to be good
-regardless of T -- this is the theorem's own asymptotic regime.
+Mathematical background
+------------------------
+Writing Sigma_n := sum_{j=1}^n (log M_j - E[log M_j]) for the centered
+log-mass statistic over n windows, the Central Limit Theorem underlying
+every hypothesis test in this package states
+
+    Sigma_n / lambda --d--> N(0, V_n(H)),
+
+for a closed-form asymptotic variance V_n(H) (see core_simulation.py,
+Vn_formula). This script checks that convergence numerically at a single
+(H, lambda, T) triple by comparing the standardized statistic
+W := (Sigma_n - mean(Sigma_n)) / lambda against N(0, std(W)^2), via a
+histogram overlay and a QQ-plot.
 
 Produces
 --------
@@ -22,6 +44,12 @@ NotImplementedError.
 Usage
 -----
     python clt_check.py
+
+References
+----------
+Billingsley, P. (1995). "Probability and Measure," 3rd ed., Theorem 27.1
+    (Lindeberg-Levy Central Limit Theorem). Wiley.
+===========================================================
 """
 
 import numpy as np

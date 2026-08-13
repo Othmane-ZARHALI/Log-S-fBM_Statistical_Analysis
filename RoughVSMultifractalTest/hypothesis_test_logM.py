@@ -1,20 +1,31 @@
 """
-hypothesis_test_logM.py
-=========================
+===========================================================
+File        : hypothesis_test_logM.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    Numerical simulation of the H=0 vs. H != 0 statistical test using the
+    DIRECT log-M test statistic, at n=5, Delta=1, T=8, lambda=0.1.
+    This module defines:
+      - run_at_H, simulating Sigma_n under a given true Hurst exponent H
+        via core_simulation.build_chol / simulate_M.
+      - run, assembling the size check (H=0) and the power curve
+        (H != 0) and producing the associated figure.
 
-Numerical simulation of the H=0 vs. H != 0 statistical test using the
-DIRECT log-M test statistic
+Mathematical background
+------------------------
+The direct log-M test statistic is
 
-    Z_n := Sigma_n / (lambda * sqrt(V_n(0))),   Sigma_n = sum_{j=1}^n ln(M_j / Delta),
+    Z_n := Sigma_n / (lambda * sqrt(V_n(0))),
+    Sigma_n = sum_{j=1}^n ln(M_j / Delta),
 
-rather than the regularized-proportion test T_n (Theorem 24) implemented
-in ``hypothesis_test_regularized.py``. Z_n has the same asymptotic power
-as T_n but noticeably better finite-sample power, and requires no
-threshold ``a`` or bandwidth ``eps`` to choose.
-
-Parameters: n=5, Delta=1, T=8. Size here is already excellent at
-lambda=0.1, so no need for a smaller lambda (contrast with the
-regularized test, which needed lambda=0.05 for comparable size).
+used in place of the regularized-proportion test T_n (Theorem 24)
+implemented in hypothesis_test_regularized.py. Z_n has the same
+asymptotic power as T_n but noticeably better finite-sample power, and
+requires no threshold a or bandwidth eps to choose. Size here is already
+excellent at lambda=0.1, so no need for a smaller lambda (contrast with
+the regularized test, which needed lambda=0.05 for comparable size).
 
 Produces
 --------
@@ -30,6 +41,13 @@ NotImplementedError.
 Usage
 -----
     python hypothesis_test_logM.py
+
+References
+----------
+Bolko, A. E., Christensen, K., Pakkanen, M. S., Veliyev, B. (2020). "A GMM
+    approach to estimate the roughness of stochastic volatility."
+    arXiv:2010.04610.
+===========================================================
 """
 
 import numpy as np

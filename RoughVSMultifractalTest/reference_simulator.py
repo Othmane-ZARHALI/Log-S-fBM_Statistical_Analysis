@@ -1,31 +1,46 @@
 """
-reference_simulator.py
-=======================
+===========================================================
+File        : reference_simulator.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    Reference FFT-based (circulant embedding) simulator for the
+    log-integrated volatility field used throughout the H=0 vs. H!=0
+    (rough vs. multifractal) hypothesis-testing study.
+    This module defines:
+      - sfbm_om_corr, building the fractional/logarithmic autocovariance
+        sequence of the driving log-volatility field.
+      - gaussprocess, an exact stationary Gaussian process simulator via
+        Wood-Chan circulant embedding (FFT method).
+      - genlogVol_independent, drawing the log-mass surrogate zz2 and the
+        raw block integral lamOmega from two independent field
+        realizations sharing the same covariance law.
+      - make_figure_std_vs_lambda, make_figure_histograms, make_figure_qq,
+        the three independent-fields null-hypothesis diagnostics.
 
-Reference FFT-based (circulant embedding) simulator for the log-integrated
-volatility field used throughout the H=0 vs H!=0 (rough vs. multifractal)
-hypothesis-testing study.
+Mathematical background
+------------------------
+Let omega(t) be a centered Gaussian field with autocovariance
 
-Model sketch
-------------
-Let omega(t) be a centered Gaussian field with covariance built by
-``_sfbmomcorr`` (a shifted fractional-Brownian-motion-type covariance,
-governed by the Hurst-like exponent H and the volatility-of-volatility
-parameter lambda^2). Two quantities are extracted, block by block:
+    c_H(x) = lambda^2 * log(T/x)                          for H = 0,
+    c_H(x) = lambda^2/[2H(1-2H)] * (T^{2H} - x^{2H})       for H != 0,
 
-    zz2       = log( integral_block e^{2 omega(t)} dt ),  re-centered
-                (the theoretical log-integrated-variance surrogate,
-                computed stably via ``scipy.special.logsumexp``);
-    lamOmega  = integral_block ( omega(t) - mean(omega) ) dt
-                (the raw centered block integral of the field itself).
+for 0 < x < T (Hurst-type roughness exponent H, volatility-of-volatility
+lambda^2, integral scale T). On window j, define
+
+    zz2      = log( integral_block e^{2 omega(t)} dt ), re-centered
+               (the theoretical log-integrated-variance surrogate,
+               computed stably via ``scipy.special.logsumexp``);
+    lamOmega = integral_block ( omega(t) - mean(omega) ) dt
+               (the raw centered block integral of the field itself).
 
 These are generated from two *independent* realizations sharing the same
-covariance law (``genlogVol_independent``), which is the null-hypothesis
-benchmark used in Figures 1-3 below: under independence, the residual
-    R := zz2 - (2/M) * lamOmega
-should have std(R) growing like lambda as lambda2 -> infinity ("R is
-essentially just zz2's own fluctuation" in that regime, hence slope ~ 1
-in the log-log std(R) vs. lambda fit performed in ``make_figure1``).
+covariance law (genlogVol_independent), which is the null-hypothesis
+benchmark used in the three diagnostic figures below: under independence,
+the residual R := zz2 - (2/M) * lamOmega should have std(R) growing like
+lambda as lambda^2 -> infinity, i.e. slope ~ 1 in the log-log std(R) vs.
+lambda fit performed by make_figure_std_vs_lambda.
 
 Usage
 -----
@@ -33,6 +48,14 @@ Usage
 
 runs all three diagnostic figures (std(R) vs. lambda, 4-panel histograms,
 and QQ-plots) and saves them as PDF/PNG in the current directory.
+
+References
+----------
+Wood, A. T. A., Chan, G. (1994). "Simulation of Stationary Gaussian
+    Processes in [0,1]^d." J. Comput. Graph. Statist., 3(4), 409-432.
+Gatheral, J., Jaisson, T., Rosenbaum, M. (2018). "Volatility is rough."
+    Quantitative Finance, 18(6), 933-949.
+===========================================================
 """
 
 import numpy as np

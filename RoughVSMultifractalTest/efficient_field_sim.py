@@ -1,13 +1,16 @@
 """
-efficient_field_sim.py
-=======================
-
-*** EXTERNAL DEPENDENCY -- NOT PART OF THE SUPPLIED SOURCE ***
-
-``compute_one_point_logM.py`` imports ``simulate_Y_batch`` from this module.
-It was referenced but never defined in the original uploaded script; this
-file documents the interface reconstructed from the call site so the
-package imports cleanly. See ``core_simulation.py`` for the same caveat.
+===========================================================
+File        : efficient_field_sim.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    *** EXTERNAL DEPENDENCY -- NOT PART OF THE SUPPLIED SOURCE ***
+    compute_one_point_logM.py imports simulate_Y_batch from this module.
+    It was referenced but never defined in the original uploaded script;
+    this file documents the interface reconstructed from the call site so
+    the package imports cleanly. See core_simulation.py for the same
+    caveat.
 
 Expected interface
 -------------------
@@ -25,6 +28,7 @@ simulate_Y_batch(n, Delta, T, H, lam, n_reps, pts_per_window, sigma2,
     ``compute_one_point_logM.py``, e.g. T=20000). Returns an array of shape
     (n_reps, n), consistent with
     ``Sigma_n = Y.sum(axis=1)`` at the call site.
+===========================================================
 """
 
 

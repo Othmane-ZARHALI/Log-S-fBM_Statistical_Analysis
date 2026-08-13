@@ -1,19 +1,33 @@
 """
-hypothesis_test_regularized.py
-================================
+===========================================================
+File        : hypothesis_test_regularized.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    Numerical simulation of the H=0 vs. H != 0 statistical test based on
+    the regularized-proportion statistic (Theorem 24), at n=5, Delta=1,
+    T=8, threshold a=0.1, bandwidth eps=0.3 (in the delta-method-valid
+    regime, eps >> eps* = sqrt(a*lambda)), lambda=0.05.
+    This module defines:
+      - run_at_H, simulating the T_n statistic under a given true Hurst
+        exponent H via core_simulation.build_chol / simulate_M.
+      - run, assembling the size check (H=0) and the power curve
+        (H != 0) and producing the associated figure.
 
-Numerical simulation of the H=0 vs. H != 0 statistical test based on the
-regularized-proportion statistic (Theorem 24), at n=5, Delta=1, T=8,
-threshold a=0.1, bandwidth eps=0.3 (in the delta-method-valid regime,
-eps >> eps* = sqrt(a*lambda)), lambda=0.05.
+Mathematical background
+------------------------
+With c_eps := phi(a/eps) / eps (the delta-method derivative factor,
+phi the standard normal density) and p_hat_n^eps the regularized
+proportion statistic of regularized_indicator.py, the test statistic is
 
-Test statistic
---------------
-    T_n := n * (p_hat_n^eps - Phi(-a/eps)) / (lambda * c_eps * sqrt(V_n(0)))
+    T_n := n * (p_hat_n^eps - Phi(-a/eps)) / (lambda * c_eps * sqrt(V_n(0))).
 
-with c_eps := phi(a/eps) / eps (the delta-method derivative factor) and
-p_hat_n^eps the regularized proportion statistic of
-``regularized_indicator.py``. Reject H0: H=0 when |T_n| > z_{1-alpha/2}.
+Reject H0: H=0 when |T_n| > z_{1-alpha/2}. Under H0, T_n --d--> N(0,1)
+(asymptotic size alpha). Under a true H, with R(H) := sqrt(V_n(H)/V_n(0)),
+the asymptotic power is
+
+    pi(H) = 1 - Phi(z_{1-alpha/2}/R(H)) + Phi(-z_{1-alpha/2}/R(H)).
 
 V_n(0) is the exact closed-form H -> 0 limit of Vn_formula (via
 L'Hopital); since the underlying field's own variance
@@ -35,6 +49,13 @@ NotImplementedError.
 Usage
 -----
     python hypothesis_test_regularized.py
+
+References
+----------
+Bolko, A. E., Christensen, K., Pakkanen, M. S., Veliyev, B. (2020). "A GMM
+    approach to estimate the roughness of stochastic volatility."
+    arXiv:2010.04610.
+===========================================================
 """
 
 import numpy as np

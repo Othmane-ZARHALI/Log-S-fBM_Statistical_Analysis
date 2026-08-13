@@ -1,17 +1,31 @@
 """
-compute_one_point_logM.py
-===========================
+===========================================================
+File        : compute_one_point_logM.py
+Project     : rough-vs-multifractal-hypothesis-testing
+Authors     : Othmane Zarhali
+Created     : 2026
+Description :
+    Computes the empirical power of the DIRECT log-M test for a SINGLE
+    (H, n) pair, and appends the result as one JSON line to
+    power_results_logM.jsonl. Intended to be run as a fresh process per
+    data point -- established as necessary (memory / stability) for
+    large n in the earlier p_hat^eps version of this study.
+    This module defines:
+      - main, the command-line entry point computing and appending a
+        single (H, n) power point.
 
-Computes the empirical power of the DIRECT log-M test
-(Z_n = Sigma_n / (lambda * sqrt(V_n(0)))) for a SINGLE (H, n) pair, and
-appends the result as one JSON line to ``power_results_logM.jsonl``.
-Intended to be run as a fresh process per data point -- established as
-necessary (memory / stability) for large n in the earlier p_hat^eps
-version of this study.
+Mathematical background
+------------------------
+The empirical power reported is that of the direct log-M test statistic
 
-Uses the chunked, memory-efficient simulator ``simulate_Y_batch`` (see
-``efficient_field_sim.py``) rather than the dense Cholesky simulator, to
-handle the large T = 20000 regime used here.
+    Z_n := Sigma_n / (lambda * sqrt(V_n(0))),
+    Sigma_n = sum_{j=1}^n ln(M_j / Delta),
+
+as defined and studied at fixed n in hypothesis_test_logM.py. This script
+computes a single power point pi_hat(H, n) := P(|Z_n| > z_crit | H) at a
+given alternative H and sample size n, using the chunked, memory-efficient
+simulator simulate_Y_batch (see efficient_field_sim.py) rather than the
+dense Cholesky simulator, to handle the large T = 20000 regime used here.
 
 Requires ``efficient_field_sim.py`` (simulate_Y_batch) and
 ``core_simulation.py`` (Vn_formula) in the same directory -- see those
@@ -24,6 +38,13 @@ Usage
 Example
 -------
     python compute_one_point_logM.py 0.2 10
+
+References
+----------
+Bolko, A. E., Christensen, K., Pakkanen, M. S., Veliyev, B. (2020). "A GMM
+    approach to estimate the roughness of stochastic volatility."
+    arXiv:2010.04610.
+===========================================================
 """
 
 import sys
